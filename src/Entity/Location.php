@@ -19,7 +19,7 @@ class Location
     #[ORM\Column(length: 255)]
     private ?string $country = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $city = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 7)]

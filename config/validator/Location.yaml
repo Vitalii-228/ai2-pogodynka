@@ -1,0 +1,39 @@
+App\Entity\Location:
+    properties:
+        country:
+            -   NotBlank:
+                    message: 'Country cannot be blank.'
+                    groups: [ 'create', 'edit' ]
+            -   Choice:
+                    choices: [ 'Pl', 'DE', 'FR', 'ES', 'IT', 'GB', 'US' ]
+                    message: 'Please select a country from the list.'
+                    groups: [ 'create', 'edit' ]
+
+        city:
+            - NotBlank:
+                  message: 'City cannot be blank.'
+                  groups: ['create', 'edit']
+            - Length:
+                  min: 2
+                  max: 255
+                  minMessage: 'City name must be at least 2 characters long.'
+                  maxMessage: 'City name cannot be longer than 255 characters.'
+                  groups: ['create', 'edit']
+
+        latitude:
+            - NotNull:
+                  message: 'Latitude cannot be blank.'
+                  groups: ['create', 'edit']
+            - Regex:
+                  pattern: '/^-?([0-8]?\d(\.\d+)?|90(\.0+)?)$/'
+                  message: 'Latitude must be a number between -90 and 90.'
+                  groups: ['create', 'edit']
+
+        longitude:
+            - NotNull:
+                  message: 'Longitude cannot be blank.'
+                  groups: ['create', 'edit']
+            - Regex:
+                  pattern: '/^-?(180(\.0+)?|((1[0-7]\d)|([0-9]?\d))(\.\d+)?)$/'
+                  message: 'Longitude must be a number between -180 and 180.'
+                  groups: ['create', 'edit']

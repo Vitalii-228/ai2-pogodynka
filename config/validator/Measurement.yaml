@@ -1,0 +1,48 @@
+App\Entity\Weather:
+    properties:
+        date:
+            - NotBlank:
+                  message: "The date cannot be empty."
+                  groups: ['create', 'edit']
+
+        temperature:
+            - NotBlank:
+                  message: "The temperature cannot be empty."
+                  groups: ['create']
+            - Type:
+                  type: numeric
+                  message: "Temperature must be a valid number."
+                  groups: ['create', 'edit']
+            - Range:
+                  min: -100
+                  max: 100
+                  notInRangeMessage: "Temperature must be between -100 and 100 degrees."
+                  groups: ['create', 'edit']
+
+        humidity:
+            - NotBlank:
+                  message: "Humidity cannot be empty."
+                  groups: ['create']
+            - Type:
+                  type: numeric
+                  message: "Humidity must be a valid number."
+                  groups: ['create', 'edit']
+            - Range:
+                  min: 0
+                  max: 100
+                  notInRangeMessage: "Humidity must be between 0 and 100 percent."
+                  groups: ['create', 'edit']
+
+        wind:
+            - NotBlank:
+                  message: "Wind speed cannot be empty."
+                  groups: ['create']
+            - Type:
+                  type: numeric
+                  message: "Wind speed must be a valid number."
+                  groups: ['create', 'edit']
+            - Range:
+                  min: 0
+                  max: 300
+                  notInRangeMessage: "Wind speed must be between 0 and 300 km/h."
+                  groups: ['create', 'edit']
