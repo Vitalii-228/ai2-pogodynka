@@ -5,10 +5,11 @@
 {% block body %}
     <h1>Location index</h1>
 
-    <div>
-        <a href="http://localhost:53733/measurement" class="btn btn-primary">Measurement</a>
-    </div>
-
+    {%if is_granted('ROLE_MEASUREMENT_INDEX')%}
+        <div>
+            <a href="http://localhost:53733/measurement" class="btn btn-primary">Measurement</a>
+        </div>
+    {% endif %}
     <table class="table">
         <thead>
             <tr>
@@ -29,8 +30,12 @@
                 <td>{{ location.latitude }}</td>
                 <td>{{ location.longitude }}</td>
                 <td>
+                    {%if is_granted('ROLE_LOCATION_SHOW')%}
                     <a href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
+                    {% endif %}
+                    {%if is_granted('ROLE_LOCATION_EDIT')%}
                     <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -41,5 +46,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_location_new') }}">Create new</a>
+    {%if is_granted('ROLE_LOCATION_NEW')%}
+        <a href="{{ path('app_location_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
