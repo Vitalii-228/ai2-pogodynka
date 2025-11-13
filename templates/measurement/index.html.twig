@@ -4,9 +4,13 @@
 
 {% block body %}
     <h1>Weather index</h1>
-    <div>
-        <a href="http://localhost:53733/location" class="btn btn-primary">Location</a>
-    </div>
+
+    {%if is_granted('ROLE_LOCATION_INDEX')%}
+        <div>
+            <a href="http://localhost:53733/location" class="btn btn-primary">Location</a>
+        </div>
+    {% endif %}
+
     <table class="table">
         <thead>
             <tr>
@@ -27,8 +31,13 @@
                 <td>{{ weather.humidity }}</td>
                 <td>{{ weather.wind }}</td>
                 <td>
-                    <a href="{{ path('app_measurement_show', {'id': weather.id}) }}">show</a>
-                    <a href="{{ path('app_measurement_edit', {'id': weather.id}) }}">edit</a>
+                    {%if is_granted('ROLE_MEASUREMENT_SHOW')%}
+                        <a href="{{ path('app_measurement_show', {'id': weather.id}) }}">show</a>
+                    {% endif %}
+
+                    {%if is_granted('ROLE_MEASUREMENT_EDIT')%}
+                        <a href="{{ path('app_measurement_edit', {'id': weather.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -38,6 +47,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_measurement_new') }}">Create new</a>
+    {%if is_granted('ROLE_MEASUREMENT_NEW')%}
+        <a href="{{ path('app_measurement_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
